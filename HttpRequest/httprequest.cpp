@@ -15,6 +15,7 @@ QJsonObject HttpRequest::Http_request_operation(const QString &url)
 {
    QJsonObject jsonObj;
    URL = ADDRESS+url;
+
    Reply = Manager->get(QNetworkRequest(URL));
 
    QEventLoop loop;
@@ -32,7 +33,6 @@ QJsonObject HttpRequest::Http_request_operation(const QString &url)
           QByteArray data = Reply->readAll();
           QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
           jsonObj = jsonDoc.object();
-          //QString message = jsonObj.value("message").toString();
        }
    return jsonObj;
 }

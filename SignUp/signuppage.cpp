@@ -47,14 +47,26 @@ QJsonObject SignUpPage::Get_UserData()
     QString first_name;
     QString last_name;
 
-    ui->UsernameLineEdit->text();
-    ui->PasswordLineEdit->text();
-    ui->FirstnameLineEdit->text();
-    ui->LastnameLineEdit->text();
+    username=ui->UsernameLineEdit->text();
+    password=ui->PasswordLineEdit->text();
+    first_name=ui->FirstnameLineEdit->text();
+    last_name=ui->LastnameLineEdit->text();
     QJsonObject information = {
         {"username",username} , {"password",password} , {"firstname",first_name} ,
         {"lastname",last_name}
     };
+
+    if(username.isEmpty()||password.isEmpty())
+    {
+        QString error="Please fill out the blanks.";
+        throw error;
+    }
+    else if(username.contains(" "))
+    {
+        QString error="Username is unvalid.";
+        throw error;
+    }
+
     return information;
 }
 
@@ -80,10 +92,11 @@ QString SignUpPage::Http_creator(const QJsonObject &Information_toSend)
 
 QString SignUpPage::Http_analyser(const QJsonObject &information)
 {
-    if(information.value("code")==200){
-        return "You successfully signed up.";
+    if(information.value("code")=="200"){
+        QString message="You successfully signed up.";
+        return message;
     }
-    else if(information.value("code")==204){
+    else if(information.value("code")=="204"){
         QString error="Your username already exists.";
         throw error;
     }
