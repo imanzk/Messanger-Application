@@ -1,10 +1,30 @@
-#include "SignUp/signuppage.h"
 #include <QApplication>
+#include "Administrator/administrator.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    SignUpPage w;
-    w.show();
-    return a.exec();
+    QApplication app(argc, argv);
+    Administrator admin;
+
+    return app.exec();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

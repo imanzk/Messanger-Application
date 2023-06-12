@@ -1,9 +1,9 @@
-#include "SignUp/signuppage.h"
-#include "ui_signuppage.h"
+#include "loginpage.h"
+#include "ui_loginpage.h"
 
-SignUpPage::SignUpPage(QWidget *parent) :
+LogInPage::LogInPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SignUpPage)
+    ui(new Ui::LogInPage)
 {
     ui->setupUi(this);
 
@@ -12,37 +12,36 @@ SignUpPage::SignUpPage(QWidget *parent) :
     OKpushButton=false;
     CancelpushButton=false;
 
-    connect(ui->OKpushButton,SIGNAL(clicked()),this ,SLOT(LinkerSignUp()));
+    connect(ui->OKpushButton,SIGNAL(clicked()),this ,SLOT(LinkerLogIn()));
 }
 
-SignUpPage::~SignUpPage()
+LogInPage::~LogInPage()
 {
     delete ui;
     delete Request;
 }
 
-void SignUpPage::on_CancelpushButton_clicked() //It is a slot
+void LogInPage::on_CancelpushButton_clicked() //It is a slot
 {
     CancelpushButton=true;
     emit _click();
 }
 
-void SignUpPage::OKpushButton_clicked() //It is not a slot
+void LogInPage::OKpushButton_clicked() //It is not a slot
 {
     OKpushButton=true;
     emit _click();
 }
 
-
-void SignUpPage::LinkerSignUp() //Getting , Creating , Sending and Getting , Analysing , Outputing , finally OKpushButton_clicked()
+void LogInPage::LinkerLogIn() //Getting , Creating , Sending and Getting , Analysing , Outputing , finally OKpushButton_clicked()
 {
     try
     {
         QJsonObject info= Get_UserData();
         QString http= Http_creator(info);
         QJsonObject information_received=(Request->Http_request_operation(http));
-        QString stream=Http_analyser(information_received);
-        Output_SignUp(stream);
+        QString stream=Http_analyser(information_received); //and store token if it is suited
+        Output_LogIn(stream);
         OKpushButton_clicked();
     }
     catch(const QString Error)
@@ -52,21 +51,17 @@ void SignUpPage::LinkerSignUp() //Getting , Creating , Sending and Getting , Ana
     }
 }
 
-QJsonObject SignUpPage::Get_UserData()
+QJsonObject LogInPage::Get_UserData()
 {
     //information
     QString username;
     QString password;
-    QString first_name;
-    QString last_name;
 
     username=ui->UsernameLineEdit->text();
     password=ui->PasswordLineEdit->text();
-    first_name=ui->FirstnameLineEdit->text();
-    last_name=ui->LastnameLineEdit->text();
+
     QJsonObject information = {
-        {"username",username} , {"password",password} , {"firstname",first_name} ,
-        {"lastname",last_name}
+        {"username",username} , {"password",password}
     };
 
     if(username.isEmpty()||password.isEmpty())
@@ -80,37 +75,42 @@ QJsonObject SignUpPage::Get_UserData()
         throw error;
     }
 
+    else
     return information;
 }
 
-QString SignUpPage::Http_creator(const QJsonObject &Information_toSend)
+QString LogInPage::Http_creator(const QJsonObject &Information_toSend)
 {
      QString url_commands ;
 
-     url_commands += "signup?";
+     url_commands += "login?";
      url_commands += "username=";
      url_commands += Information_toSend.value("username").toString();
      url_commands += "&";
      url_commands += "password=";
      url_commands += Information_toSend.value("password").toString();
-     url_commands += "&";
-     url_commands += "firstname=";
-     url_commands += Information_toSend.value("firstname").toString();
-     url_commands += "&";
-     url_commands += "lastname=";
-     url_commands += Information_toSend.value("lastname").toString();
 
      return url_commands;
 }
 
-QString SignUpPage::Http_analyser(const QJsonObject &information)
+QString LogInPage::Http_analyser(const QJsonObject &information)
 {
     if(information.value("code")=="200"){
-        QString message="You signed up successfully.";
+        //store token
+        token = information.value("token").toString();
+        QString message="You loged in successfully.";
         return message;
     }
     else if(information.value("code")=="204"){
-        QString error="Your username already exists!";
+        QString error="Your are already loged in!";
+        throw error;
+    }
+    else if(information.value("code")=="404"){
+        QString error="User Not Found";
+        throw error;
+    }
+    else if(information.value("code")=="401"){
+        QString error="Password is not Correct!";
         throw error;
     }
     else{
@@ -120,24 +120,13 @@ QString SignUpPage::Http_analyser(const QJsonObject &information)
 }
 
 //It prints success message on the ErrorLabel
-void SignUpPage::Output_SignUp(const QString &stream)
+void LogInPage::Output_LogIn(const QString &stream)
 {
     ui->ErrorLabel->setStyleSheet("color: green");
     ui->ErrorLabel->setText(stream);
     OKpushButton=true;
     Sleep(1000);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

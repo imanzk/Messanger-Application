@@ -10,15 +10,23 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Administrator/administrator.cpp \
+    Entrance/entrancepage.cpp \
     HttpRequest/httprequest.cpp \
+    LogIn/loginpage.cpp \
     SignUp/signuppage.cpp \
     main.cpp
 
 HEADERS += \
+    Administrator/administrator.h \
+    Entrance/entrancepage.h \
     HttpRequest/httprequest.h \
+    LogIn/loginpage.h \
     SignUp/signuppage.h
 
 FORMS += \
+    Entrance/entrancepage.ui \
+    LogIn/loginpage.ui \
     SignUp/signuppage.ui
 
 # Default rules for deployment.

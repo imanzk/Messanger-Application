@@ -1,5 +1,5 @@
-#ifndef SIGNUPPAGE_H
-#define SIGNUPPAGE_H
+#ifndef LOGINPAGE_H
+#define LOGINPAGE_H
 
 #include "HttpRequest/httprequest.h"
 #include <QWidget>
@@ -9,27 +9,26 @@
 #include <Windows.h>
 
 namespace Ui {
-class SignUpPage;
+class LogInPage;
 }
 
-class SignUpPage : public QWidget
+class LogInPage : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SignUpPage(QWidget *parent = nullptr);
-    ~SignUpPage();
+    explicit LogInPage(QWidget *parent = nullptr);
+    ~LogInPage();
 
 private:
-    Ui::SignUpPage *ui;
+    Ui::LogInPage *ui;
     HttpRequest *Request;
-
 public:
 //Two attributes to switch between pages
     bool OKpushButton;
     bool CancelpushButton;
 
-    //it is activated with Output_SignUp func
+    //it is activated with Output_LogIn func
     void OKpushButton_clicked();
 private slots:
     void on_CancelpushButton_clicked();
@@ -38,13 +37,16 @@ private slots:
 signals:
     void _click();
 public slots:
-    void LinkerSignUp(); //The Head of all we do, this is activated by clicking on OKpushButton
+    void LinkerLogIn(); //The Head of all we do, this is activated by clicking on OKpushButton
 public:
+    //To store token
+    QString token;
+
     QJsonObject Get_UserData();
     QString Http_creator(const QJsonObject&);
     QString Http_analyser(const QJsonObject&);
-    void Output_SignUp(const QString &);
+    void Output_LogIn(const QString &);
 
 };
 
-#endif // SIGNUPPAGE_H
+#endif // LOGINPAGE_H
