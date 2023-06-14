@@ -16,6 +16,8 @@
 #include "SignUp/signuppage.h"
 #include "Entrance/entrancepage.h"
 #include "LogIn/loginpage.h"
+#include "ListChats/listchatspage.h"
+#include "Thread/thread.h"
 
 class Administrator : public QObject
 {
@@ -30,6 +32,8 @@ public:
     void Entrance_New();
     void Login_New();
     void Signup_New();
+    void ListChats_New();
+
 private:
     QStackedWidget *stackedWidget;
 
@@ -37,18 +41,20 @@ private:
     std::vector <EntrancePage*> entrance_list;
     std::vector <SignUpPage*> signup_list;
     std::vector <LogInPage*> login_list;
+    std::vector <ListChatsPage*> listchats_list;
 
     //Declaring objects to work
     EntrancePage *entrance;
     SignUpPage *signup;
     LogInPage *login;
+    ListChatsPage *listchats;
 
 public slots:
     //Functions to do for each obj:
     void Entrance_Func();
     void Signup_Func();
     void Login_Func();
-signals:
+    void Listchats_Func();
 
 };
 

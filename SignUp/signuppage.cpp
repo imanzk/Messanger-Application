@@ -42,6 +42,7 @@ void SignUpPage::LinkerSignUp() //Getting , Creating , Sending and Getting , Ana
         QString http= Http_creator(info);
         QJsonObject information_received=(Request->Http_request_operation(http));
         QString stream=Http_analyser(information_received);
+        //if inputs and outputs were Ok , continue
         Output_SignUp(stream);
         OKpushButton_clicked();
     }
@@ -105,12 +106,13 @@ QString SignUpPage::Http_creator(const QJsonObject &Information_toSend)
 
 QString SignUpPage::Http_analyser(const QJsonObject &information)
 {
-    if(information.value("code")=="200"){
-        QString message="You signed up successfully.";
+    QString code=information.value("code").toString();
+    if(code=="200"){
+        QString message=information.value("message").toString();
         return message;
     }
-    else if(information.value("code")=="204"){
-        QString error="Your username already exists!";
+    else if(code=="204"){
+        QString error=information.value("message").toString();
         throw error;
     }
     else{

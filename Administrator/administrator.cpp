@@ -3,10 +3,11 @@
 Administrator::Administrator(QObject *parent)
     : QObject{parent}
 {
-    stackedWidget=new QStackedWidget;
+   stackedWidget=new QStackedWidget;
 //Intialize to null
    signup=nullptr;
    login=nullptr;
+   listchats=nullptr;
 //Start
    entrance=new EntrancePage;
    WidgetSelection(entrance, 400, 400);
@@ -57,73 +58,72 @@ void Administrator::Entrance_Func()
     if(entrance->LoginPage)
     {
         Login_New();
-        WidgetSelection(login,400,400);
     }
     else //SignUpPage is true
     {
         Signup_New();
-        WidgetSelection(signup,400,400);
     }
 }
 void Administrator::Signup_Func()
 {
     if(signup->OKpushButton)
     {
-       //Go again to entrance page
+       //Go to entrance page
        Entrance_New();
-       WidgetSelection(entrance, 400, 400);
     }
     else if(signup->CancelpushButton)
     {
-       //Go again to entrance page too :)
+       //Go again to entrance page :)
        Entrance_New();
-       WidgetSelection(entrance, 400, 400);
     }
 }
 void Administrator::Login_Func()
 {
     if(login->OKpushButton)
     {
-       //Go to a empty list
+       //Go to the listchats page
+       ListChats_New();
     }
     else if(login->CancelpushButton)
     {
        //Go to entrance page
        Entrance_New();
-       WidgetSelection(entrance, 400, 400);
     }
 }
+void Administrator::Listchats_Func()
+{
 
+}
 /***************News***************/
 
 void Administrator::Entrance_New()
 {
-    if(entrance)
-    {
-      entrance_list.push_back(entrance);
-    }
     entrance=new EntrancePage;
+    WidgetSelection(entrance, 400, 400);
+    entrance_list.push_back(entrance);
     connect(entrance,SIGNAL(_click()),this,SLOT(Entrance_Func()));
 }
 void Administrator::Signup_New()
 {
-    if(signup)
-    {
-      signup_list.push_back(signup);
-    }
     signup=new SignUpPage;
+    WidgetSelection(signup,400,400);
+    signup_list.push_back(signup);
     connect(signup,SIGNAL(_click()),this,SLOT(Signup_Func()));
 }
 void Administrator::Login_New()
 {
-    if(login)
-    {
-        login_list.push_back(login);
-    }
     login=new LogInPage;
+    WidgetSelection(login,400,400);
+    login_list.push_back(login);
     connect(login,SIGNAL(_click()),this,SLOT(Login_Func()));
 }
-
+void Administrator::ListChats_New()
+{
+    listchats=new ListChatsPage;
+    WidgetSelection(listchats,400,400);
+    listchats_list.push_back(listchats);
+    connect(listchats,SIGNAL(_click()),this,SLOT(Listchats_Func()));
+}
 
 
 

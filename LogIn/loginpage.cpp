@@ -95,22 +95,23 @@ QString LogInPage::Http_creator(const QJsonObject &Information_toSend)
 
 QString LogInPage::Http_analyser(const QJsonObject &information)
 {
-    if(information.value("code")=="200"){
+   QString code=information.value("code").toString();
+   if(code=="200"){
         //store token
         token = information.value("token").toString();
-        QString message="You loged in successfully.";
+        QString message=information.value("message").toString();
         return message;
     }
-    else if(information.value("code")=="204"){
-        QString error="Your are already loged in!";
+    else if(code=="204"){
+        QString error=information.value("message").toString();
         throw error;
     }
-    else if(information.value("code")=="404"){
-        QString error="User Not Found";
+    else if(code=="404"){
+        QString error=information.value("message").toString();
         throw error;
     }
-    else if(information.value("code")=="401"){
-        QString error="Password is not Correct!";
+    else if(code=="401"){
+        QString error=information.value("message").toString();
         throw error;
     }
     else{
