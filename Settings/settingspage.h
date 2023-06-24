@@ -40,7 +40,7 @@ public:
     QJsonObject GetData(); //the data to create channel or group
     QString HttpCreator(const QJsonObject&);
     QString HttpAnalyser(const QJsonObject&);
-
+    void Make_New(const QJsonObject&); //makes new files and initializes dst to new channel or group
     void CreatepushButton_clicked(); //it makes createpushbutton attribute true and emits signal
 };
 

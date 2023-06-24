@@ -31,7 +31,14 @@ void SettingsPage::on_BackpushButton_clicked()
 void SettingsPage::on_LogoutpushButton_clicked()
 {
    QString command="logout?username="+FilesOP::GetUsername()+"&password="+FilesOP::GetPassword();
-   HttpRequest::Http_request_operation(command);
+   QJsonObject jsonObj = HttpRequest::Http_request_operation(command);
+
+   try {
+       if(jsonObj["code"]!="200") throw;
+   } catch (...) {
+       qDebug()<<jsonObj["message"];
+       return;
+   }
 
    FilesOP::RemoveProfile();
    FilesOP::Remove_Channels_List();
@@ -49,6 +56,7 @@ void SettingsPage::Linker()
         QString http = HttpCreator(info);
         QJsonObject received_info=HttpRequest::Http_request_operation(http);
         QString output = HttpAnalyser(received_info);
+        Make_New(info);
         CreatepushButton_clicked();
     }
     catch (const QString error) {
@@ -115,6 +123,15 @@ QString SettingsPage::HttpAnalyser(const QJsonObject& info)
         QString error = info["message"].toString();
         throw error;
     }
+}
+void SettingsPage::Make_New(const QJsonObject& info)
+{
+    QString name = info["name"].toString();
+    QString status = info["status"].toString();
+    if(status == "group") FilesOP::Create_Group_File(name);
+    else if(status == "channel") FilesOP::Create_Channel_File(name);
+    //after creating a file now we have to set dst
+    FilesOP::SetDst(name);
 }
 void SettingsPage::CreatepushButton_clicked()
 {
