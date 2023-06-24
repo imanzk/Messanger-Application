@@ -5,13 +5,12 @@ ListChatsPage::ListChatsPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ListChatsPage)
 {
+    FilesOP::Create_Users_Folder();
+    FilesOP::Create_Channels_Folder();
+    FilesOP::Create_Groups_Folder();
+
     ui->setupUi(this);
     threadlist = new ThreadList(this);
-
-    Setting_pushButton=false;
-    Search_pushButton=false;
-    Item_pushButton[0]=0;
-    Item_pushButton[1]=0;
     //
     connect(threadlist,SIGNAL(newUser(const QJsonObject)),this,SLOT(Add_User_Item(const QJsonObject)));
     connect(threadlist,SIGNAL(newGroup(const QJsonObject)),this,SLOT(Add_Group_Item(const QJsonObject)));
@@ -22,15 +21,21 @@ ListChatsPage::~ListChatsPage()
     threadlist->terminate();
     delete ui;
     delete threadlist;
-
+    for (int i = 0 ;i<item_list.size();i++)
+    {
+        delete item_list[i];
+    }
 }
 
 /**********pushButton Slots*****************/
 
 void ListChatsPage::on_listWidget_clicked(const QModelIndex &index)
 {
-    Item_pushButton[0]=1;
-    Item_pushButton[1]=index.row();
+//add to dst file:
+    QString dst = printedlist[index.row()];
+    FilesOP::SetDst(dst);
+
+    Item_pushButton=true;
     emit _click();
 }
 
@@ -88,7 +93,8 @@ void ListChatsPage::Add_Item(const QString name)
   if(!printedlist.contains(name))
   {
     printedlist << name;
-    QListWidgetItem *item=new QListWidgetItem(name);
+    item=new QListWidgetItem(name);
+    item_list.append(item);
     item->setBackground(QColor(255, 255, 255));
     QFont font("Helvetica", 11);
     item->setFont(font);
@@ -104,7 +110,6 @@ void ListChatsPage::Recovery()
     for ( int i = 0 ; i < size ; i ++)
     {
         QJsonObject block=jsonObject["block "+QString::number(i)].toObject();
-        block["src"]=block["src"].toString().remove(".json");
         Add_Item(block["src"].toString());
     }
     jsonObject=FilesOP::Get_Groups_List();
@@ -112,7 +117,6 @@ void ListChatsPage::Recovery()
     for ( int i = 0 ; i < size ; i ++)
     {
         QJsonObject block=jsonObject["block "+QString::number(i)].toObject();
-        block["group_name"]=block["group_name"].toString().remove(".json");
         Add_Item(block["group_name"].toString());
     }
     jsonObject=FilesOP::Get_Channels_List();
@@ -120,22 +124,22 @@ void ListChatsPage::Recovery()
     for ( int i = 0 ; i < size ; i ++)
     {
         QJsonObject block=jsonObject["block "+QString::number(i)].toObject();
-        block["channel_name"]=block["channel_name"].toString().remove(".json");
         Add_Item(block["channel_name"].toString());
     }
 }
 
 //
-void ListChatsPage::MakeFalse()
+void ListChatsPage::Customize()
 {
+    threadlist->stop=false;
     Setting_pushButton=false;
     Search_pushButton=false;
-    Item_pushButton[0]=0;
-    Item_pushButton[1]=0;
+    Item_pushButton=false;
+    threadlist->start();
 }
 
 //get printedlist
-QStringList ListChatsPage::GetPrintedlist(){return printedlist;}
+//QStringList ListChatsPage::GetPrintedlist(){return printedlist;}
 
 
 

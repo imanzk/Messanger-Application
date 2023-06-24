@@ -7,6 +7,7 @@
 #include <QtCore>
 #include <QThread>
 #include <Windows.h>
+#include "FilesOP/filesop.h"
 
 namespace Ui {
 class LogInPage;
@@ -22,7 +23,10 @@ public:
 
 private:
     Ui::LogInPage *ui;
-    HttpRequest *Request;
+
+    //we store them when we receive success message
+    QString username;
+    QString password;
 public:
 //Two attributes to switch between pages
     bool OKpushButton;
@@ -39,8 +43,6 @@ signals:
 public slots:
     void LinkerLogIn(); //The Head of all we do, this is activated by clicking on OKpushButton
 public:
-    //To store token
-    QString token;
 
     QJsonObject Get_UserData();
     QString Http_creator(const QJsonObject&);

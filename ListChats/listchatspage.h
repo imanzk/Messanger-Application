@@ -5,6 +5,7 @@
 #include <QObject>
 #include "threadlist.h"
 #include <QJsonObject>
+#include <QListWidgetItem>
 
 namespace Ui {
 class ListChatsPage;
@@ -21,19 +22,20 @@ public:
 
 private:
     Ui::ListChatsPage *ui;
-
+    QListWidgetItem *item;
+    QList <QListWidgetItem*> item_list;
 private:
     //to store what are shown on the listwidget and to figure out which Item is clicked respectively
     QStringList printedlist;
-public:
-    //getter for printed list
-    QStringList GetPrintedlist();
+//public:
+//    //getter for printed list
+//    QStringList GetPrintedlist();
 
 public:
 //Two attributes to switch between pages
     bool Search_pushButton;
     bool Setting_pushButton;
-    int Item_pushButton[2]; // First section for click status on listWidget, Second for the index of selection
+    bool Item_pushButton;
 
 
 signals:
@@ -50,8 +52,9 @@ public:
     //It prints unprinted Item
     void Add_Item(const QString name);
 
-    //it makes pushbutton attributes to false
-    void MakeFalse();
+    /*because of we have just one object from chatpage in our all program so each time we
+    have to customize it*/
+    void Customize();
 
 //    QString Http_creator(const QJsonObject&);
 //    QString Http_analyser(const QJsonObject&);

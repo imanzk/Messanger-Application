@@ -1,5 +1,6 @@
-QT       += core gui
-QT +=network
+QT += core gui
+QT += core
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,27 +13,31 @@ CONFIG += c++17
 SOURCES += \
     Administrator/administrator.cpp \
     Chat/chatpage.cpp \
+    Chat/threadchat.cpp \
     Entrance/entrancepage.cpp \
+    FilesOP/filesop.cpp \
     HttpRequest/httprequest.cpp \
     ListChats/listchatspage.cpp \
+    ListChats/threadlist.cpp \
     LogIn/loginpage.cpp \
     Search/searchpage.cpp \
     Settings/settingspage.cpp \
     SignUp/signuppage.cpp \
-    Thread/thread.cpp \
     main.cpp
 
 HEADERS += \
     Administrator/administrator.h \
     Chat/chatpage.h \
+    Chat/threadchat.h \
     Entrance/entrancepage.h \
+    FilesOP/filesop.h \
     HttpRequest/httprequest.h \
     ListChats/listchatspage.h \
+    ListChats/threadlist.h \
     LogIn/loginpage.h \
     Search/searchpage.h \
     Settings/settingspage.h \
-    SignUp/signuppage.h \
-    Thread/thread.h
+    SignUp/signuppage.h
 
 FORMS += \
     Chat/chatpage.ui \

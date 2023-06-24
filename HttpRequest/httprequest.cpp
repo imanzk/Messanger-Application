@@ -3,21 +3,25 @@
 
 HttpRequest::HttpRequest(QWidget *parent) :  QWidget(parent)
 {
-    Manager = new QNetworkAccessManager;
+
 }
 HttpRequest::~HttpRequest()
 {
-    delete Manager;
-    delete Reply;
+
 }
 
 QJsonObject HttpRequest::Http_request_operation(const QString &url)
 {
+   QUrl URL;
+
    QJsonObject jsonObj;
    URL = ADDRESS+url;
 
-   Reply = Manager->get(QNetworkRequest(URL));
+   QNetworkAccessManager Manager;
+   QNetworkReply *Reply;
 
+   Reply = Manager.get(QNetworkRequest(URL));
+//   reply_list.append(Reply);
    QEventLoop loop;
    QObject::connect(Reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
    loop.exec();

@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -55,6 +55,12 @@
             <layout class="QVBoxLayout" name="verticalLayout">
              <item>
               <widget class="QLabel" name="label">
+               <property name="maximumSize">
+                <size>
+                 <width>71</width>
+                 <height>26</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <bold>true</bold>
@@ -70,6 +76,12 @@
              </item>
              <item>
               <widget class="QLabel" name="label_2">
+               <property name="maximumSize">
+                <size>
+                 <width>71</width>
+                 <height>26</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <bold>true</bold>
@@ -88,10 +100,24 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QLineEdit" name="UsernameLineEdit"/>
+              <widget class="QLineEdit" name="UsernameLineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>148</width>
+                 <height>26</height>
+                </size>
+               </property>
+              </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="PasswordLineEdit"/>
+              <widget class="QLineEdit" name="PasswordLineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>148</width>
+                 <height>26</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -107,8 +133,8 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>16777215</width>
-             <height>16777215</height>
+             <width>232</width>
+             <height>29</height>
             </size>
            </property>
            <property name="text">
@@ -126,8 +152,8 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>16000000</width>
-             <height>16777215</height>
+             <width>232</width>
+             <height>29</height>
             </size>
            </property>
            <property name="text">
@@ -137,8 +163,14 @@
          </item>
          <item>
           <widget class="QLabel" name="ErrorLabel">
+           <property name="maximumSize">
+            <size>
+             <width>228</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string/>

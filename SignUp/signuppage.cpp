@@ -7,8 +7,6 @@ SignUpPage::SignUpPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Request = new HttpRequest;
-
     OKpushButton=false;
     CancelpushButton=false;
 
@@ -18,7 +16,6 @@ SignUpPage::SignUpPage(QWidget *parent) :
 SignUpPage::~SignUpPage()
 {
     delete ui;
-    delete Request;
 }
 
 void SignUpPage::on_CancelpushButton_clicked() //It is a slot
@@ -40,7 +37,7 @@ void SignUpPage::LinkerSignUp() //Getting , Creating , Sending and Getting , Ana
     {
         QJsonObject info= Get_UserData();
         QString http= Http_creator(info);
-        QJsonObject information_received=(Request->Http_request_operation(http));
+        QJsonObject information_received=(HttpRequest::Http_request_operation(http));
         QString stream=Http_analyser(information_received);
         //if inputs and outputs were Ok , continue
         Output_SignUp(stream);
@@ -111,12 +108,8 @@ QString SignUpPage::Http_analyser(const QJsonObject &information)
         QString message=information.value("message").toString();
         return message;
     }
-    else if(code=="204"){
-        QString error=information.value("message").toString();
-        throw error;
-    }
     else{
-        QString error="Unknown Error";
+        QString error=information.value("message").toString();;
         throw error;
     }
 }
@@ -126,8 +119,6 @@ void SignUpPage::Output_SignUp(const QString &stream)
 {
     ui->ErrorLabel->setStyleSheet("color: green");
     ui->ErrorLabel->setText(stream);
-    OKpushButton=true;
-    Sleep(1000);
 }
 
 

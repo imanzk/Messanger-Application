@@ -22,7 +22,6 @@ public:
 
 private:
     Ui::SignUpPage *ui;
-    HttpRequest *Request;
 
 public:
 //Two attributes to switch between pages

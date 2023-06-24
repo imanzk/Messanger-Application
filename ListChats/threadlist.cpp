@@ -5,14 +5,12 @@ ThreadList::ThreadList(QObject *parent)
 {
     stop=false;
 
-    FilesOP::Create_Users_Folder();
-    FilesOP::Create_Channels_Folder();
-    FilesOP::Create_Groups_Folder();
-
 }
 
 void ThreadList::run()
 {
+    Linker("getgrouplist");
+    Linker("getchannellist");
     while(!stop)
     {
         Linker("getuserlist");

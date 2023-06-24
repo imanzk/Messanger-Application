@@ -16,13 +16,8 @@ class HttpRequest : public QWidget
 public:
     HttpRequest(QWidget *parent = nullptr);
     ~HttpRequest();
-private:
-    QUrl URL;
-    QNetworkAccessManager *Manager;
-    QNetworkReply *Reply;
-
 public:
-    QJsonObject Http_request_operation(const QString&);//Read and write, reply is returned
+    static QJsonObject Http_request_operation(const QString&);//Read and write, reply is returned
 
 };
 

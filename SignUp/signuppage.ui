@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -52,44 +52,17 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QFormLayout" name="formLayout">
-             <item row="0" column="1">
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <widget class="QLineEdit" name="UsernameLineEdit"/>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="PasswordLineEdit"/>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="FirstnameLineEdit">
-                 <property name="whatsThis">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="LastnameLineEdit">
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="placeholderText">
-                  <string extracomment="Hello"/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
               <layout class="QVBoxLayout" name="verticalLayout">
                <item>
                 <widget class="QLabel" name="label">
+                 <property name="maximumSize">
+                  <size>
+                   <width>114</width>
+                   <height>26</height>
+                  </size>
+                 </property>
                  <property name="font">
                   <font>
                    <bold>true</bold>
@@ -105,6 +78,12 @@
                </item>
                <item>
                 <widget class="QLabel" name="label_2">
+                 <property name="maximumSize">
+                  <size>
+                   <width>114</width>
+                   <height>26</height>
+                  </size>
+                 </property>
                  <property name="font">
                   <font>
                    <bold>true</bold>
@@ -120,6 +99,12 @@
                </item>
                <item>
                 <widget class="QLabel" name="label_3">
+                 <property name="maximumSize">
+                  <size>
+                   <width>114</width>
+                   <height>26</height>
+                  </size>
+                 </property>
                  <property name="font">
                   <font>
                    <bold>true</bold>
@@ -135,6 +120,12 @@
                </item>
                <item>
                 <widget class="QLabel" name="label_4">
+                 <property name="maximumSize">
+                  <size>
+                   <width>114</width>
+                   <height>26</height>
+                  </size>
+                 </property>
                  <property name="font">
                   <font>
                    <bold>true</bold>
@@ -150,31 +141,86 @@
                </item>
               </layout>
              </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QLineEdit" name="UsernameLineEdit">
+                 <property name="maximumSize">
+                  <size>
+                   <width>151</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="PasswordLineEdit">
+                 <property name="maximumSize">
+                  <size>
+                   <width>151</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="FirstnameLineEdit">
+                 <property name="maximumSize">
+                  <size>
+                   <width>151</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="whatsThis">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="LastnameLineEdit">
+                 <property name="maximumSize">
+                  <size>
+                   <width>151</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="placeholderText">
+                  <string extracomment="Hello"/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QPushButton" name="OKpushButton">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>OK</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="QPushButton" name="OKpushButton">
+             <property name="maximumSize">
+              <size>
+               <width>274</width>
+               <height>29</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>OK</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="CancelpushButton">
              <property name="maximumSize">
               <size>
-               <width>16777215</width>
-               <height>16777215</height>
+               <width>274</width>
+               <height>29</height>
               </size>
              </property>
              <property name="text">
@@ -184,8 +230,14 @@
            </item>
            <item>
             <widget class="QLabel" name="ErrorLabel">
+             <property name="maximumSize">
+              <size>
+               <width>274</width>
+               <height>20</height>
+              </size>
+             </property>
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(255, 255, 255);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string/>

@@ -7,8 +7,6 @@ LogInPage::LogInPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    Request = new HttpRequest;
-
     OKpushButton=false;
     CancelpushButton=false;
 
@@ -18,7 +16,6 @@ LogInPage::LogInPage(QWidget *parent) :
 LogInPage::~LogInPage()
 {
     delete ui;
-    delete Request;
 }
 
 void LogInPage::on_CancelpushButton_clicked() //It is a slot
@@ -39,7 +36,7 @@ void LogInPage::LinkerLogIn() //Getting , Creating , Sending and Getting , Analy
     {
         QJsonObject info= Get_UserData();
         QString http= Http_creator(info);
-        QJsonObject information_received=(Request->Http_request_operation(http));
+        QJsonObject information_received=(HttpRequest::Http_request_operation(http));
         QString stream=Http_analyser(information_received); //and store token if it is suited
         Output_LogIn(stream);
         OKpushButton_clicked();
@@ -54,8 +51,6 @@ void LogInPage::LinkerLogIn() //Getting , Creating , Sending and Getting , Analy
 QJsonObject LogInPage::Get_UserData()
 {
     //information
-    QString username;
-    QString password;
 
     username=ui->UsernameLineEdit->text();
     password=ui->PasswordLineEdit->text();
@@ -96,28 +91,30 @@ QString LogInPage::Http_creator(const QJsonObject &Information_toSend)
 QString LogInPage::Http_analyser(const QJsonObject &information)
 {
    QString code=information.value("code").toString();
-   if(code=="200"){
-        //store token
-        token = information.value("token").toString();
+
+   //::::::::::this condition is not logicaly it is a code problem from the server but I have to handle it:::::::
+   if(information.value("message").toString()=="You are already logged in!")
+   {
+       QString error=information.value("message").toString();
+       throw error;
+   }
+   //:::::::::::::::::::::::::::::::::::::::::::
+
+   else if(code=="200"){
+        //store info of the user
+        FilesOP::CreateProfile();
+        FilesOP::SetUsername(username);
+        FilesOP::SetPassword(password);
+        FilesOP::SetToken(information.value("token").toString());
+
         QString message=information.value("message").toString();
         return message;
     }
-    else if(code=="204"){
-        QString error=information.value("message").toString();
-        throw error;
-    }
-    else if(code=="404"){
-        QString error=information.value("message").toString();
-        throw error;
-    }
-    else if(code=="401"){
-        QString error=information.value("message").toString();
-        throw error;
-    }
-    else{
-        QString error="Unknown Error";
-        throw error;
-    }
+    else
+   {
+       QString Error=information.value("message").toString();
+       throw Error;
+   }
 }
 
 //It prints success message on the ErrorLabel
@@ -125,8 +122,6 @@ void LogInPage::Output_LogIn(const QString &stream)
 {
     ui->ErrorLabel->setStyleSheet("color: green");
     ui->ErrorLabel->setText(stream);
-    OKpushButton=true;
-    Sleep(1000);
 }
 
 

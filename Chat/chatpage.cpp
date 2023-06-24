@@ -122,12 +122,12 @@ void ChatPage::ShowMyMessage(const QString text, const QString datetime)
 void ChatPage::ShowMessage(const QString username,const QString text,const QString datetime)
 {
     QString time=ShowEachDay(datetime);
-    qDebug()<<username;
-    if(username != "") item = new QListWidgetItem(username);
-    item->setBackground(QBrush(Qt::white));
-    item->setForeground(QBrush(Qt::gray));
-    ui->listWidget->addItem(item);
-
+    if(username != "") {
+        item = new QListWidgetItem(username);
+        item->setBackground(QBrush(Qt::white));
+        item->setForeground(QBrush(Qt::gray));
+        ui->listWidget->addItem(item);
+    }
     item = new QListWidgetItem(text);
     ui->listWidget->addItem(item);
 
