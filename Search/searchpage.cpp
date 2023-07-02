@@ -18,6 +18,13 @@ void SearchPage::Linker() //taskes: getting data, creating http request, analysi
 {
     try {
         QString data = GetData();
+        //if user exists between our contacts :
+        if(FilesOP::Group_Exist(data))
+        {
+            FilesOP::SetDst(data);
+            commandLinkButton_clicked();
+            return;
+        }
         QString url = HttpCreator(data , "group");
         QJsonObject receivedInfo = HttpRequest::Http_request_operation(url);
         QString output = HttpAnalyser(receivedInfo);
@@ -27,6 +34,13 @@ void SearchPage::Linker() //taskes: getting data, creating http request, analysi
     catch (...){
         try{
            QString data = GetData();
+           //if user exists between our contacts :
+           if(FilesOP::Channel_Exist(data))
+           {
+               FilesOP::SetDst(data);
+               commandLinkButton_clicked();
+               return;
+           }
            QString url = HttpCreator(data , "channel");
            QJsonObject receivedInfo = HttpRequest::Http_request_operation(url);
            QString output = HttpAnalyser(receivedInfo);
@@ -36,6 +50,13 @@ void SearchPage::Linker() //taskes: getting data, creating http request, analysi
         catch (...) {
             try{
                QString data = GetData();
+               //if user exists between our contacts :
+               if(FilesOP::User_Exist(data))
+               {
+                   FilesOP::SetDst(data);
+                   commandLinkButton_clicked();
+                   return;
+               }
                QString url = HttpCreator(data , "user");
                QJsonObject receivedInfo = HttpRequest::Http_request_operation(url);
                QString output = HttpAnalyser(receivedInfo);
