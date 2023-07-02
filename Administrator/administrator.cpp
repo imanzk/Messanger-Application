@@ -121,6 +121,7 @@ void Administrator::Login_Func()
         if(listchats) {
             stackedWidget->removeWidget(listchats);
             delete listchats;
+            listchats=nullptr;
         }
         ListChats_Set();
     }
