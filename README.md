@@ -1,5 +1,12 @@
 # Amateur-messenger-project
-An amateur messenger project was prepared for advanced programming courses in the university. We implemented what we learned on this project.
+A simple messenger project was prepared for advanced programming courses in the university.
+We implemented what we learned on this project.
+
+![Screenshot (201)](https://github.com/user-attachments/assets/fdb33497-c7d3-4c5b-b3eb-8bb5dd015a7e) 
+
+![Screenshot (200)](https://github.com/user-attachments/assets/5c30441b-b1b2-440b-a030-97fc61dd41b7)
+
+
 
 # You can ...
 1. Create an account
